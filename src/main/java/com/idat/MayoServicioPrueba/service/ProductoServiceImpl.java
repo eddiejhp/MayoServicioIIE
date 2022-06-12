@@ -11,38 +11,40 @@ import com.idat.MayoServicioPrueba.repository.ProductoRepository;
 @Service
 public class ProductoServiceImpl implements ProductoService {
 
-	//INJECCION
+	//INJECCION DE CAPA REPOSITORIO
 	@Autowired
 	private ProductoRepository repository;
 	
 	@Override
 	public void guardarProducto(Productos producto) {
 		// TODO Auto-generated method stub
-		repository.guardarProducto(producto);
+		//Se actualiza a metodos de JPA
+		repository.save(producto);
 	}
 
 	@Override
 	public void actualizarProducto(Productos producto) {
 		// TODO Auto-generated method stub
-		repository.actualizarProducto(producto);
+		repository.saveAndFlush(producto);
 	}
 
 	@Override
 	public void eliminarProducto(Integer id) {
 		// TODO Auto-generated method stub
-		repository.eliminarProducto(id);
+		repository.deleteById(id);
 	}
 
 	@Override
 	public List<Productos> listarProductos() {
 		// TODO Auto-generated method stub
-		return repository.listarProductos();
+		return repository.findAll();
 	}
 
 	@Override
 	public Productos obtenerProductoId(Integer id) {
 		// TODO Auto-generated method stub
-		return repository.obtenerProductoId(id);
+		//return repository.getByid(id);
+		return repository.findById(id).orElse(null);
 	}
 
 }
